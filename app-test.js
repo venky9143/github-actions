@@ -8,6 +8,26 @@ let chaiHttp = require("chai-http");
 chai.should();
 chai.use(chaiHttp); 
 
+before(async function () {
+    this.timeout(10000); // allow 10 seconds for Atlas connection
+    try {
+        await mongoose.connect(process.env.MONGO_URI, {
+            user: process.env.MONGO_USERNAME,
+            pass: process.env.MONGO_PASSWORD,
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log("Connected to MongoDB Atlas successfully.");
+    } catch (err) {
+        console.error("Cannot connect to MongoDB Atlas. Skipping all tests.");
+        this.skip(); // skip all tests if connection fails
+    }
+});
+
+after(async () => {
+    await mongoose.disconnect();
+});
+
 describe('Planets API Suite', () => {
 
     describe('Fetching Planet Details', () => {
