@@ -24,6 +24,9 @@ jobs:
          - name : Found the Updated Package Details 
            run: npm fund
 
+         - name: Adding the Secrtes in Git Secrets 
+           echo: Added the Mongo Secrets as in Git secrets 
+
          - name: Run tests
            env:
             MONGO_URI: ${{ secrets.MONGO_URI }}
