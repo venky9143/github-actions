@@ -21,6 +21,8 @@ jobs:
          - name: Audit Fix For Dependices 
            run: npm audit fix
 
+         - name : Found the Updated Package Details 
+           run: npm fund
 
         
         
